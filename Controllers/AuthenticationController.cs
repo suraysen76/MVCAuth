@@ -70,8 +70,9 @@ namespace MVCAuth.wwwroot
 
         public IActionResult Logout()
         {
+            var userName=HttpContext.Session.GetString("UserName");
             HttpContext.Session.Clear();
-            return RedirectToAction("Login", "Authentication");
+            return View(model: userName);
         }
 
         public IActionResult Profile()

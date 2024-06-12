@@ -4,7 +4,7 @@
     var action = ViewContext.RouteData.Values["action"].ToString();
     var userAuthenticated = Context.Session.GetString("UserAuthenticated");
     var userName = Context.Session.GetString("UserName");
-    if (userAuthenticated == null && action != "Login" && action != "Register")
+    if (userAuthenticated == null && action != "Login" && action != "Logout" && action != "Register")
     {
         Context.Response.Redirect("/Authentication/Login");
     }
