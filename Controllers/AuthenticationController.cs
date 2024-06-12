@@ -55,7 +55,9 @@ namespace MVCAuth.wwwroot
                 var registered = _authService.RegisterUser(model);
                 if (registered)
                 {
-                    
+                    HttpContext.Session.SetString("UserAuthenticated", "true");
+                    HttpContext.Session.SetString("UserName", model.UserName);
+
                     return RedirectToAction("Index", "Home");
                    
                 }

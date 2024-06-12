@@ -1,9 +1,6 @@
 ﻿using MVCAuth.Models;
-using Microsoft.AspNetCore.Authentication;
 using MVCAuth.Interfaces;
-using MVCAuth.Models;
-using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
+using MVCAuth.Handler;
 
 namespace MVCAuth.Services
 {
@@ -18,10 +15,11 @@ namespace MVCAuth.Services
         }
         public bool AuthenticateUser(LoginModel model)
         {
-            var x = _context.Users;
+            var user = _context.Users.Where(u => u.UserName == model.UserName).FirstOrDefault();
             bool authenticated = false;
-            var user = _context.Users.Where(u => u.UserName == model.UserName && u.Password == model.Password).FirstOrDefault();
-            if (user != null)
+            var pwdModel= PasswordHandler.GetPasswordModel(model.Password,user.Password);
+            
+            if (user != null && pwdModel.Verified)
             {
                    authenticated = true;
             }
@@ -39,7 +37,7 @@ namespace MVCAuth.Services
             }
             else
             {
-                var Loginodel = new LoginModel() { Name= model.Name, Password = model.Password, UserName=model.UserName };
+                var Loginodel = new LoginModel() {  };
                  _context.Users.Add(Loginodel);
                  _context.SaveChanges();
 

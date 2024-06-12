@@ -4,7 +4,7 @@
     var action = ViewContext.RouteData.Values["action"].ToString();
     var userAuthenticated = Context.Session.GetString("UserAuthenticated");
     var userName = Context.Session.GetString("UserName");
-    if (userAuthenticated==null && action != "Login")
+    if (userAuthenticated == null && action != "Login" && action != "Register")
     {
         Context.Response.Redirect("/Authentication/Login");
     }
@@ -45,10 +45,16 @@
                             if (userAuthenticated == "true")
                             {
                                 <li class="nav-link text-dark" style="margin-right:5px">
-                                    <a asp-area="" asp-controller="Authentication" asp-action="Profile" title="Authentication">@userName </a>
+                                    <a asp-area="" asp-controller="Authentication" asp-action="Profile" title="Authentication">
+                                        <img src="images/profile.jpeg" width="15" height=15 />
+                                    @userName </a>
                                 </li>
                                 <li class="nav-link text-dark" style="margin-right:5px">
-                                    <a asp-area="" asp-controller="Authentication" asp-action="Logout" title="Logout">Logout </a>
+                                    
+
+                                    <a asp-area="" asp-controller="Authentication" asp-action="Logout" title="Logout">
+                                        <img src="images/logout.jpeg" width="15" height=15 />Logout
+                                    </a>
                                 </li>
                             }
                         }                    </ul>
